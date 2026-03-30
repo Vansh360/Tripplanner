@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WanderPlan — Trip Planner</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ── HERO HEADER ── -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <nav class="navbar">
+      <div class="logo">🌍 WanderPlan</div>
+      <div class="nav-links">
+        <a href="#planner">Plan Trip</a>
+        <a href="#itinerary">Itinerary</a>
+        <a href="#budget">Budget</a>
+      </div>
+    </nav>
+    <div class="hero-content">
+      <p class="hero-tag">Your Personal Travel Companion</p>
+      <h1>Plan Your Perfect<br/><span>Adventure</span></h1>
+      <p class="hero-sub">Build day-by-day itineraries, track your budget,<br/>and manage your packing list — all in one place.</p>
+      <a href="#planner" class="hero-btn">Start Planning ✈️</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span id="totalTrips">0</span><p>Trips Planned</p></div>
+      <div class="stat"><span id="totalDays">0</span><p>Days Tracked</p></div>
+      <div class="stat"><span id="totalBudget">₹0</span><p>Budget Managed</p></div>
+    </div>
+  </header>
+
+  <!-- ── MAIN APP ── -->
+  <main class="app">
+
+    <!-- ── TRIP FORM ── -->
+    <section class="section" id="planner">
+      <div class="section-header">
+        <h2>Create a New Trip</h2>
+        <p>Fill in the details to get started</p>
+      </div>
+      <div class="card form-card">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Trip Name</label>
+            <input type="text" id="tripName" placeholder="e.g. Goa Beach Getaway 🏖️" />
+          </div>
+          <div class="form-group">
+            <label>Destination</label>
+            <input type="text" id="tripDest" placeholder="e.g. Goa, India" />
+          </div>
+          <div class="form-group">
+            <label>Start Date</label>
+            <input type="date" id="tripStart" />
+          </div>
+          <div class="form-group">
+            <label>End Date</label>
+            <input type="date" id="tripEnd" />
+          </div>
+          <div class="form-group">
+            <label>Total Budget (₹)</label>
+            <input type="number" id="tripBudget" placeholder="e.g. 25000" min="0" />
+          </div>
+          <div class="form-group">
+            <label>Trip Type</label>
+            <select id="tripType">
+              <option value="">Select type...</option>
+              <option>🏖️ Beach</option>
+              <option>🏔️ Adventure</option>
+              <option>🏛️ Cultural</option>
+              <option>🌿 Nature</option>
+              <option>🏙️ City Break</option>
+              <option>🍽️ Food Tour</option>
+              <option>💼 Business</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label>Notes / Description</label>
+          <textarea id="tripNotes" rows="3" placeholder="Add any notes, plans or excitement here..."></textarea>
+        </div>
+        <button class="btn-primary" onclick="addTrip()">➕ Add Trip</button>
+      </div>
+    </section>
+
+    <!-- ── TRIPS LIST ── -->
+    <section class="section" id="itinerary">
+      <div class="section-header">
+        <h2>My Trips</h2>
+        <p>Click on a trip to manage its itinerary & budget</p>
+      </div>
+      <div class="trips-grid" id="tripsGrid">
+        <div class="empty-state" id="emptyTrips">
+          <span>🗺️</span>
+          <p>No trips yet! Create your first adventure above.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TRIP DETAIL MODAL ── -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+      <div class="modal" id="tripModal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+
+        <div class="modal-header">
+          <div>
+            <h2 id="modalTitle">Trip Name</h2>
+            <p id="modalMeta">Destination • Dates • Type</p>
+          </div>
+          <div class="budget-pill" id="modalBudgetPill">₹0 budget</div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('itinerary')">📅 Itinerary</button>
+          <button class="tab" onclick="switchTab('budget')">💰 Budget</button>
+          <button class="tab" onclick="switchTab('packing')">🎒 Packing List</button>
+        </div>
+
+        <!-- Itinerary Tab -->
+        <div class="tab-content active" id="tab-itinerary">
+          <div class="add-row">
+            <input type="date" id="dayDate" />
+            <input type="text" id="dayActivity" placeholder="Activity (e.g. Visit Colva Beach)" />
+            <input type="text" id="dayTime" placeholder="Time (e.g. 10:00 AM)" />
+            <button class="btn-sm" onclick="addDay()">Add</button>
+          </div>
+          <div id="itineraryList" class="list-container"></div>
+        </div>
+
+        <!-- Budget Tab -->
+        <div class="tab-content" id="tab-budget">
+          <div class="budget-summary" id="budgetSummary"></div>
+          <div class="add-row">
+            <input type="text" id="expName" placeholder="Expense (e.g. Hotel)" />
+            <select id="expCategory">
+              <option>🏨 Stay</option>
+              <option>✈️ Travel</option>
+              <option>🍽️ Food</option>
+              <option>🎡 Activities</option>
+              <option>🛍️ Shopping</option>
+              <option>🚕 Local Transport</option>
+              <option>📦 Misc</option>
+            </select>
+            <input type="number" id="expAmount" placeholder="Amount ₹" min="0" />
+            <button class="btn-sm" onclick="addExpense()">Add</button>
+          </div>
+          <div id="expenseList" class="list-container"></div>
+        </div>
+
+        <!-- Packing Tab -->
+        <div class="tab-content" id="tab-packing">
+          <div class="add-row">
+            <input type="text" id="packItem" placeholder="Item (e.g. Sunscreen, Passport)" />
+            <select id="packCategory">
+              <option>👗 Clothing</option>
+              <option>🧴 Toiletries</option>
+              <option>📄 Documents</option>
+              <option>💊 Medicine</option>
+              <option>🔌 Electronics</option>
+              <option>📦 Misc</option>
+            </select>
+            <button class="btn-sm" onclick="addPackItem()">Add</button>
+          </div>
+          <div id="packingList" class="list-container"></div>
+          <div class="pack-progress" id="packProgress"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>🌍 WanderPlan — Made with ❤️ for explorers everywhere</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
