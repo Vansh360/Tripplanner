@@ -1,0 +1,53 @@
+# =========================================
+# WanderPlan — Trip Planner App
+# requirements.txt
+#
+# This is a pure frontend project built
+# with HTML, CSS & Vanilla JavaScript.
+# No npm, pip, or framework installation
+# is required.
+#
+# All external dependencies are loaded
+# via CDN links inside index.html.
+# =========================================
+
+
+# ── FONTS (Google Fonts CDN) ──────────────────
+# Playfair Display (700, 900) — headings
+# https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900
+
+# DM Sans (400, 500, 600) — body text
+# https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600
+
+
+# ── BROWSER APIS USED (built-in, no install) ──
+# localStorage       — data persistence
+# DOM API            — UI rendering
+# Date API           — date formatting
+# JSON               — data serialization
+
+
+# ── RECOMMENDED BROWSER VERSIONS ─────────────
+# Google Chrome      >= 88
+# Mozilla Firefox    >= 85
+# Microsoft Edge     >= 88
+# Apple Safari       >= 14
+# Opera              >= 74
+
+
+# ── OPTIONAL DEV TOOLS (not required) ────────
+# Live Server (VS Code Extension)  — local dev server with hot reload
+# Prettier                         — code formatting
+# Git                              — version control
+
+
+# ── TO RUN THE PROJECT ────────────────────────
+# No installation needed.
+# Simply open index.html in any modern browser.
+#
+#   macOS:    open index.html
+#   Windows:  start index.html
+#   Linux:    xdg-open index.html
+#
+# OR use VS Code Live Server:
+#   Right-click index.html → "Open with Live Server"
