@@ -64,7 +64,7 @@ trip-planner/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/wanderplan.git
+git clone https://github.com/Vansh360/wanderplan.git
 
 # Or simply download the ZIP and extract it
 ```
