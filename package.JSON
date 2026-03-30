@@ -1,0 +1,38 @@
+{
+  "name": "wanderplan-trip-planner",
+  "version": "1.0.0",
+  "description": "A beautiful browser-based Trip Planner App built with pure HTML, CSS & Vanilla JavaScript.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --open=index.html",
+    "dev":   "npx live-server --open=index.html --watch=index.html,style.css,script.js",
+    "format": "npx prettier --write ."
+  },
+  "keywords": [
+    "trip-planner",
+    "travel",
+    "itinerary",
+    "budget-tracker",
+    "packing-list",
+    "vanilla-js",
+    "html-css-js",
+    "no-framework"
+  ],
+  "author": "WanderPlan",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 88",
+    "Firefox >= 85",
+    "Edge >= 88",
+    "Safari >= 14",
+    "Opera >= 74"
+  ]
+}
